@@ -117,7 +117,6 @@ namespace Calculadora
 
         private void BotaoDiv_Click(object sender, EventArgs e)
         {
-
             numero1 = double.Parse(Display.Text);
 
             operacao = "/";
@@ -171,10 +170,17 @@ namespace Calculadora
 
         private void BotaoBin_Click(object sender, EventArgs e)
         {
-            int numero1 = int.Parse(Display.Text);
+            try
+            {
+                int numero1 = int.Parse(Display.Text);
 
-            string resultado = calc.Binario(numero1);
-            Display.Text = resultado.ToString();
+                string resultado = calc.Binario(numero1);
+                Display.Text = resultado.ToString();
+            }
+            catch
+            {
+                Display.Text = "Erro";
+            }
         }
 
         private void BotaoClear_Click(object sender, EventArgs e)
@@ -203,22 +209,32 @@ namespace Calculadora
             {
                 case "+":
                     resultado = numero1 + numero2;
+                    Display.Text = resultado.ToString();
                     break;
 
                 case "-":
                     resultado = numero1 - numero2;
+                    Display.Text = resultado.ToString();
                     break;
 
                 case "*":
                     resultado = numero1 * numero2;
+                    Display.Text = resultado.ToString();
                     break;
 
                 case "/":
-                    resultado = numero1 / numero2;
-                    break;
+                    if (numero2 == 0)
+                    {
+                        Display.Text = "Erro";
+                        break;
+                    }
+                    else
+                    {
+                        resultado = numero1 / numero2;
+                        Display.Text = resultado.ToString();
+                        break;
+                    }
             }
-
-            Display.Text = resultado.ToString();
         }
     }
 }
